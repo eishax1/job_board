@@ -1,0 +1,78 @@
+<div class="container mt-5" style="margin-top: 70px">
+    <!-- Heading Section -->
+    <div class="row mb-4">
+      <div class="col-12" style="margin-top: 70px">
+        <h2 class="text-center text-primary fw-bold">Available Jobs</h2>
+        <p class="text-center text-muted">Explore the latest job opportunities tailored for you</p>
+      </div>
+    </div>
+
+
+    
+    <!-- Job Cards -->
+    <div class="row">
+        <div class="col-md-12">
+            @for(job of job_list; track job.job_title) {
+                <div class="card mb-4 shadow border-0 rounded-3"
+                    style = "cursor: pointer"[routerLink] = "['/job',job._id.$oid]">
+                    <!-- Job Title -->
+                    <div class="card-header bg-primary text-white d-flex align-items-center">
+                        <h5 class="mb-0 flex-grow-1">{{ job.job_title }}</h5>
+                        <span class="badge bg-light text-primary">{{ job.employment_type }}</span>
+                    </div>
+                    <!-- Job Details -->
+                    <div class="card-body">
+                        <div class="row mb-3">
+                            <div class="col-md-6">
+                                <p class="mb-2">
+                                    <i class="bi bi-building text-primary me-2"></i>
+                                    <strong>Company:</strong> {{ job.company_name }}
+                                </p>
+                                <p class="mb-2">
+                                    <i class="bi bi-briefcase text-primary me-2"></i>
+                                    <strong>Seniority Level:</strong> {{ job.seniority_level }}
+                                </p>
+                            </div>
+                            <div class="col-md-6">
+                                <p class="mb-2">
+                                    <i class="bi bi-calendar-event text-primary me-2"></i>
+                                    <strong>Posted Date:</strong> {{ job.posted_info.posted_date }}
+                                </p>
+                                <p class="mb-2">
+                                    <i class="bi bi-people text-primary me-2"></i>
+                                    <strong>Applicants:</strong> {{ job.posted_info.num_applicants }}
+                                </p>
+                            </div>
+                        </div>
+                        <!-- Job Description -->
+                        <div class="job-description">
+                            <h6 class="text-primary">Job Description:</h6>
+                            <p class="text-muted mb-0">{{ job.job_description }}</p>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+  
+    <!-- Pagination Section -->
+    <div class="row align-items-center mt-4">
+      <div class="col-sm-4">
+        <button class="btn btn-outline-primary w-100" (click)="previousPage()">
+          <i class="bi bi-arrow-left"></i> Previous
+        </button>
+      </div>
+      <div class="col-sm-4 text-center">
+        <p class="mb-0 text-muted">
+          Page <span class="fw-bold">{{ page }}</span> of 
+          <span class="fw-bold">{{ dataService.getLastPageNumber() }}</span>
+        </p>
+      </div>
+      <div class="col-sm-4">
+        <button class="btn btn-outline-primary w-100" (click)="nextPage()">
+          Next <i class="bi bi-arrow-right"></i>
+        </button>
+      </div>
+    </div>
+  </div>
+  
